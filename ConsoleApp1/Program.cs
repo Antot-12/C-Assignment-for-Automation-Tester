@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text.Json;
 
-namespace DirectoryInfoApp
+namespace ConsoleApp1
 {
     // Class to hold the file information
     public class FileInfoData

@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "inENuv3t7wuxNwa4KVvcESKnmp4TC50TNR/VWmdlJAiYZimVHWnsFjSy/0mu5o0iS0gPufoJ56unxaO6z7ZvtA==",
+  "dgSpecHash": "DC7L7+81gsvey0p3+Jx+S3hF1Sp0BtgLeGvSIspZWbyqeWt4aHpjOc3huhqhlviQCki6wSAc/Tni9+ZhaK0AKA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Antot_12\\RiderProjects\\ConsoleApp1\\ConsoleApp1\\ConsoleApp1.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Antot_12\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\Antot_12\\.nuget\\packages\\netstandard.library\\2.0.0\\netstandard.library.2.0.0.nupkg.sha512",
+    "C:\\Users\\Antot_12\\.nuget\\packages\\nunit\\3.14.0\\nunit.3.14.0.nupkg.sha512"
+  ],
   "logs": []
 }

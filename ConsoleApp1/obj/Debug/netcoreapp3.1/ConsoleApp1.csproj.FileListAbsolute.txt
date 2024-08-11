@@ -11,3 +11,5 @@ C:\Users\Antot_12\RiderProjects\ConsoleApp1\ConsoleApp1\obj\Debug\netcoreapp3.1\
 C:\Users\Antot_12\RiderProjects\ConsoleApp1\ConsoleApp1\obj\Debug\netcoreapp3.1\ConsoleApp1.dll
 C:\Users\Antot_12\RiderProjects\ConsoleApp1\ConsoleApp1\obj\Debug\netcoreapp3.1\ConsoleApp1.pdb
 C:\Users\Antot_12\RiderProjects\ConsoleApp1\ConsoleApp1\obj\Debug\netcoreapp3.1\ConsoleApp1.genruntimeconfig.cache
+C:\Users\Antot_12\RiderProjects\ConsoleApp1\ConsoleApp1\bin\Debug\netcoreapp3.1\nunit.framework.dll
+C:\Users\Antot_12\RiderProjects\ConsoleApp1\ConsoleApp1\obj\Debug\netcoreapp3.1\ConsoleApp1.csproj.CopyComplete
