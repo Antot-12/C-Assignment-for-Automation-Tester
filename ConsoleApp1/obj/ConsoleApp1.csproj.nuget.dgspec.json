@@ -39,6 +39,10 @@
             "NUnit": {
               "target": "Package",
               "version": "[3.14.0, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.9.0, )"
             }
           },
           "imports": [

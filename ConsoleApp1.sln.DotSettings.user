@@ -1,0 +1,11 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=2f4e7c0e_002D271f_002D4633_002Da8c4_002D5130369119f2/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetUniqueFileExtensions_ShouldReturnCorrectExtensions #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::5A3969DA-D11D-4268-9249-9BB669FC1280::.NETCoreApp,Version=v3.1::TestProject1.DirectoryProcessorTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=ebef44f2_002Dcdae_002D481b_002Da5d6_002D6649c31b1a57/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetUniqueFileExtensions_ShouldReturnCorrectExtensions" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::F91D0260-C25D-4CA6-85FC-249F27190812::.NETCoreApp,Version=v3.1::TestProject1.DirectoryProcessorTests.GetUniqueFileExtensions_ShouldReturnCorrectExtensions&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

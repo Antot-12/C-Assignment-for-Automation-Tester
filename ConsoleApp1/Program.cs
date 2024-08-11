@@ -25,51 +25,74 @@ namespace ConsoleApp1
         // Method to process a directory and return its structure as DirectoryData
         public static DirectoryData ProcessDirectory(string path)
         {
-            // Initialize DirectoryData with the directory name
-            DirectoryData directoryData = new DirectoryData
+            try
             {
-                DirectoryName = Path.GetFileName(path)
-            };
-
-            // Get all files in the current directory and add them to the directoryData.Files list
-            foreach (var file in Directory.GetFiles(path))
-            {
-                directoryData.Files.Add(new FileInfoData
+                // Initialize DirectoryData with the directory name
+                DirectoryData directoryData = new DirectoryData
                 {
-                    FileName = Path.GetFileName(file),
-                    Extension = Path.GetExtension(file)
-                });
-            }
+                    DirectoryName = Path.GetFileName(path)
+                };
 
-            // Get all subdirectories and process each recursively
-            foreach (var directory in Directory.GetDirectories(path))
+                // Get all files in the current directory and add them to the directoryData.Files list
+                foreach (var file in Directory.GetFiles(path))
+                {
+                    directoryData.Files.Add(new FileInfoData
+                    {
+                        FileName = Path.GetFileName(file),
+                        Extension = Path.GetExtension(file)
+                    });
+                }
+
+                // Get all subdirectories and process each recursively
+                foreach (var directory in Directory.GetDirectories(path))
+                {
+                    directoryData.NestedDirectories.Add(ProcessDirectory(directory));
+                }
+
+                return directoryData; // Return the populated directory data
+            }
+            catch (Exception ex)
             {
-                directoryData.NestedDirectories.Add(ProcessDirectory(directory));
+                Console.WriteLine($"An error occurred while processing the directory: {ex.Message}");
+                return null; // Return null if an error occurs
             }
-
-            return directoryData; // Return the populated directory data
         }
 
         // Method to serialize DirectoryData to a JSON file
         public static void SerializeToJson(DirectoryData data, string filePath)
         {
-            // Ensure the directory exists before writing the JSON file
-            string directoryPath = Path.GetDirectoryName(filePath);
-            if (!Directory.Exists(directoryPath))
+            try
             {
-                Directory.CreateDirectory(directoryPath);
-            }
+                // Ensure the directory exists before writing the JSON file
+                string directoryPath = Path.GetDirectoryName(filePath);
+                if (!Directory.Exists(directoryPath))
+                {
+                    Directory.CreateDirectory(directoryPath);
+                }
 
-            var options = new JsonSerializerOptions { WriteIndented = true }; // Format JSON with indentation
-            var json = JsonSerializer.Serialize(data, options); // Serialize DirectoryData to JSON
-            File.WriteAllText(filePath, json); // Write JSON to a file
+                var options = new JsonSerializerOptions { WriteIndented = true }; // Format JSON with indentation
+                var json = JsonSerializer.Serialize(data, options); // Serialize DirectoryData to JSON
+                File.WriteAllText(filePath, json); // Write JSON to a file
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while saving to JSON: {ex.Message}");
+            }
         }
 
         // Method to deserialize JSON file back into DirectoryData
         public static DirectoryData DeserializeFromJson(string filePath)
         {
-            var json = File.ReadAllText(filePath); // Read JSON from a file
-            return JsonSerializer.Deserialize<DirectoryData>(json); // Deserialize JSON to DirectoryData
+            try
+            {
+                var json = File.ReadAllText(filePath); // Read JSON from a file
+                return JsonSerializer.Deserialize<DirectoryData>(json); // Deserialize JSON to DirectoryData
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while reading from JSON: {ex.Message}");
+                return null; // Return null if an error occurs
+            }
         }
 
         // Method to retrieve a unique set of file extensions within the directory data
@@ -77,17 +100,24 @@ namespace ConsoleApp1
         {
             HashSet<string> extensions = new HashSet<string>(); // Set to store unique extensions
 
-            // Add extensions of all files in the current directory
-            foreach (var file in data.Files)
+            try
             {
-                extensions.Add(file.Extension);
-            }
+                // Add extensions of all files in the current directory
+                foreach (var file in data.Files)
+                {
+                    extensions.Add(file.Extension);
+                }
 
-            // Recursively add extensions from nested directories
-            foreach (var nestedDir in data.NestedDirectories)
+                // Recursively add extensions from nested directories
+                foreach (var nestedDir in data.NestedDirectories)
+                {
+                    var nestedExtensions = GetUniqueFileExtensions(nestedDir);
+                    extensions.UnionWith(nestedExtensions);
+                }
+            }
+            catch (Exception ex)
             {
-                var nestedExtensions = GetUniqueFileExtensions(nestedDir);
-                extensions.UnionWith(nestedExtensions);
+                Console.WriteLine($"An error occurred while retrieving file extensions: {ex.Message}");
             }
 
             return extensions; // Return the set of unique file extensions
@@ -98,34 +128,41 @@ namespace ConsoleApp1
         {
             Dictionary<string, int> extensionCounts = new Dictionary<string, int>();
 
-            // Count occurrences of each file extension in the current directory
-            foreach (var file in data.Files)
+            try
             {
-                if (extensionCounts.ContainsKey(file.Extension))
+                // Count occurrences of each file extension in the current directory
+                foreach (var file in data.Files)
                 {
-                    extensionCounts[file.Extension]++;
-                }
-                else
-                {
-                    extensionCounts[file.Extension] = 1;
-                }
-            }
-
-            // Recursively count occurrences in nested directories
-            foreach (var nestedDir in data.NestedDirectories)
-            {
-                var nestedCounts = GetFileExtensionCounts(nestedDir);
-                foreach (var kvp in nestedCounts)
-                {
-                    if (extensionCounts.ContainsKey(kvp.Key))
+                    if (extensionCounts.ContainsKey(file.Extension))
                     {
-                        extensionCounts[kvp.Key] += kvp.Value;
+                        extensionCounts[file.Extension]++;
                     }
                     else
                     {
-                        extensionCounts[kvp.Key] = kvp.Value;
+                        extensionCounts[file.Extension] = 1;
                     }
                 }
+
+                // Recursively count occurrences in nested directories
+                foreach (var nestedDir in data.NestedDirectories)
+                {
+                    var nestedCounts = GetFileExtensionCounts(nestedDir);
+                    foreach (var kvp in nestedCounts)
+                    {
+                        if (extensionCounts.ContainsKey(kvp.Key))
+                        {
+                            extensionCounts[kvp.Key] += kvp.Value;
+                        }
+                        else
+                        {
+                            extensionCounts[kvp.Key] = kvp.Value;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while counting file extensions: {ex.Message}");
             }
 
             return extensionCounts;
@@ -158,43 +195,56 @@ namespace ConsoleApp1
 
                 DirectoryData directoryData = null;
 
-                // Process the directory if the path is valid
-                if (Directory.Exists(inputPath))
+                try
                 {
-                    directoryData = DirectoryProcessor.ProcessDirectory(inputPath);
-                }
-                // Deserialize JSON file if a valid JSON file path is provided
-                else if (File.Exists(inputPath) && Path.GetExtension(inputPath) == ".json")
-                {
-                    directoryData = DirectoryProcessor.DeserializeFromJson(inputPath);
-                }
-                else
-                {
-                    Console.WriteLine("Invalid directory or JSON file path.");
-                    continue; // Ask for input again
-                }
+                    // Process the directory if the path is valid
+                    if (Directory.Exists(inputPath))
+                    {
+                        directoryData = DirectoryProcessor.ProcessDirectory(inputPath);
+                    }
+                    // Deserialize JSON file if a valid JSON file path is provided
+                    else if (File.Exists(inputPath) && Path.GetExtension(inputPath) == ".json")
+                    {
+                        directoryData = DirectoryProcessor.DeserializeFromJson(inputPath);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid directory or JSON file path.");
+                        continue; // Ask for input again
+                    }
 
-                // Get and display the unique file extensions found in the directory structure
-                var extensions = DirectoryProcessor.GetUniqueFileExtensions(directoryData);
-                var extensionCounts = DirectoryProcessor.GetFileExtensionCounts(directoryData);
+                    if (directoryData == null)
+                    {
+                        Console.WriteLine("Failed to process the directory or JSON file.");
+                        continue;
+                    }
 
-                Console.WriteLine($"Number of unique extensions found: {extensions.Count}");
-                Console.WriteLine("Extensions found in folder:");
-                foreach (var kvp in extensionCounts)
-                {
-                    Console.WriteLine($"{kvp.Key}: {kvp.Value} file(s)");
+                    // Get and display the unique file extensions found in the directory structure
+                    var extensions = DirectoryProcessor.GetUniqueFileExtensions(directoryData);
+                    var extensionCounts = DirectoryProcessor.GetFileExtensionCounts(directoryData);
+
+                    Console.WriteLine($"Number of unique extensions found: {extensions.Count}");
+                    Console.WriteLine("Extensions found in folder:");
+                    foreach (var kvp in extensionCounts)
+                    {
+                        Console.WriteLine($"{kvp.Key}: {kvp.Value} file(s)");
+                    }
+
+                    Console.WriteLine("Save to JSON? (y/n)");
+                    string saveToJson = Console.ReadLine();
+
+                    // If the user chooses to save the directory data to a JSON file
+                    if (saveToJson.ToLower() == "y")
+                    {
+                        Console.WriteLine("Please provide the JSON file location (with the file extension):");
+                        string jsonFilePath = Console.ReadLine();
+                        DirectoryProcessor.SerializeToJson(directoryData, jsonFilePath);
+                        Console.WriteLine($"Directory information saved to {jsonFilePath}");
+                    }
                 }
-
-                Console.WriteLine("Save to JSON? (y/n)");
-                string saveToJson = Console.ReadLine();
-
-                // If the user chooses to save the directory data to a JSON file
-                if (saveToJson.ToLower() == "y")
+                catch (Exception ex)
                 {
-                    Console.WriteLine("Please provide the JSON file location (with the file extension):");
-                    string jsonFilePath = Console.ReadLine();
-                    DirectoryProcessor.SerializeToJson(directoryData, jsonFilePath);
-                    Console.WriteLine($"Directory information saved to {jsonFilePath}");
+                    Console.WriteLine($"An unexpected error occurred: {ex.Message}");
                 }
             }
         }

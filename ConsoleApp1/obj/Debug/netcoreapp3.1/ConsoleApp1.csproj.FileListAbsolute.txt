@@ -13,3 +13,7 @@ C:\Users\Antot_12\RiderProjects\ConsoleApp1\ConsoleApp1\obj\Debug\netcoreapp3.1\
 C:\Users\Antot_12\RiderProjects\ConsoleApp1\ConsoleApp1\obj\Debug\netcoreapp3.1\ConsoleApp1.genruntimeconfig.cache
 C:\Users\Antot_12\RiderProjects\ConsoleApp1\ConsoleApp1\bin\Debug\netcoreapp3.1\nunit.framework.dll
 C:\Users\Antot_12\RiderProjects\ConsoleApp1\ConsoleApp1\obj\Debug\netcoreapp3.1\ConsoleApp1.csproj.CopyComplete
+C:\Users\Antot_12\RiderProjects\ConsoleApp1\ConsoleApp1\bin\Debug\netcoreapp3.1\xunit.abstractions.dll
+C:\Users\Antot_12\RiderProjects\ConsoleApp1\ConsoleApp1\bin\Debug\netcoreapp3.1\xunit.assert.dll
+C:\Users\Antot_12\RiderProjects\ConsoleApp1\ConsoleApp1\bin\Debug\netcoreapp3.1\xunit.core.dll
+C:\Users\Antot_12\RiderProjects\ConsoleApp1\ConsoleApp1\bin\Debug\netcoreapp3.1\xunit.execution.dotnet.dll

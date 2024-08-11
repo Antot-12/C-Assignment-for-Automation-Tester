@@ -13,6 +13,10 @@
     <SourceRoot Include="C:\Users\Antot_12\.nuget\packages\" />
   </ItemGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Import Project="$(NuGetPackageRoot)xunit.core\2.9.0\build\xunit.core.props" Condition="Exists('$(NuGetPackageRoot)xunit.core\2.9.0\build\xunit.core.props')" />
     <Import Project="$(NuGetPackageRoot)nunit\3.14.0\build\NUnit.props" Condition="Exists('$(NuGetPackageRoot)nunit\3.14.0\build\NUnit.props')" />
   </ImportGroup>
+  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Pkgxunit_analyzers Condition=" '$(Pkgxunit_analyzers)' == '' ">C:\Users\Antot_12\.nuget\packages\xunit.analyzers\1.15.0</Pkgxunit_analyzers>
+  </PropertyGroup>
 </Project>
